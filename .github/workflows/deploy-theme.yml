@@ -3,10 +3,10 @@ on: [push]
 
 jobs:
   deploy:
-    runs-on: ubuntu-18.04
+    runs-on: ubuntu-22.04
     steps:
       - uses: actions/checkout@master
-      - uses: actions/setup-node@v1
+      - uses: actions/setup-node@v3.5.1
         with:
           node-version: '16.x'
       - run: npm install
