@@ -77,6 +77,42 @@
     to inject styles of the hero image to make it responsive --}}
     {{{block "herobackground"}}}
 
+
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/tocbot/4.20.0/tocbot.min.css" integrity="sha512-a/fdL49R0f7ZkWXAaVeKvAoIQYcc90fqoAv0aZnfSDD5onvu8Z1QEiiulgDlNVp2x1B9H+WkxtsGLeZkk1gYGw==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+    <style>
+      .gh-content {
+        position: relative;
+      }
+
+      .gh-toc > .toc-list {
+        position: relative;
+      }
+
+      .toc-list {
+        overflow: hidden;
+        list-style: none;
+      }
+
+      @media (min-width: 1300px) {
+        .gh-sidebar {
+          position: absolute;
+          top: 0;
+          bottom: 0;
+          margin-top: 4vmin;
+          grid-column: wide-start / main-start; /* Place the TOC to the left of the content */
+        }
+
+        .gh-toc {
+          position: sticky; /* On larger screens, TOC will stay in the same spot on the page */
+          top: 4vmin;
+        }
+      }
+
+      .gh-toc .is-active-link::before {
+        background-color: var(--ghost-accent-color); /* Defines TOC   accent color based on Accent color set in Ghost Admin */
+      }
+    </style>
+
     {{!-- This tag outputs SEO meta+structured data and other important settings --}}
     {{ghost_head}}
 
@@ -147,6 +183,22 @@
 
     {{!-- The #block helper will pull in data from the #contentFor other template files --}}
     {{{block "scripts"}}}
+
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/tocbot/4.20.0/tocbot.min.js" integrity="sha512-aeQPIoprk35kvJYUFH4nhvm+ASgaUHHBfJQLEfizXatcdcrWFIzNNpG/lf70ePbB1cplRQ2I5/XyMLMZJHFRzQ==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+    {{! Initialize Tocbot after you load the script }}
+    <script>
+      tocbot.init({
+        // Where to render the table of contents.
+        tocSelector: '.gh-toc',
+        // Where to grab the headings to build the table of contents.
+        contentSelector: '.js-post-content',
+        // Which headings to grab inside of the contentSelector element.
+        headingSelector: 'h1, h2, h3, h4',
+        // Ensure correct positioning
+        hasInnerContainers: true,
+      });
+    </script>
 
     {{!-- Ghost outputs important scripts and data with this tag --}}
     {{ghost_foot}}
